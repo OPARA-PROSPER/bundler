@@ -1,4 +1,3 @@
-require "uri"
 require_relative "core_ext/io_binary_read"
 require_relative "actions/create_file"
 require_relative "actions/create_link"
