@@ -127,7 +127,7 @@ module Bundler::URI
         scheme, opaque, userinfo, host, port,
           registry, path, query, fragment = $~[1..-1]
 
-        # Bundler::URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
+        # URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
 
         # absoluteURI   = scheme ":" ( hier_part | opaque_part )
         # hier_part     = ( net_path | abs_path ) [ "?" query ]
@@ -141,11 +141,11 @@ module Bundler::URI
 
         if !scheme
           raise InvalidURIError,
-            "bad Bundler::URI(absolute but no scheme): #{uri}"
+            "bad URI(absolute but no scheme): #{uri}"
         end
         if !opaque && (!path && (!host && !registry))
           raise InvalidURIError,
-            "bad Bundler::URI(absolute but no path): #{uri}"
+            "bad URI(absolute but no path): #{uri}"
         end
 
       when @regexp[:REL_URI]
@@ -162,7 +162,7 @@ module Bundler::URI
           path = abs_path
         end
 
-        # Bundler::URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
+        # URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
 
         # relativeURI   = ( net_path | abs_path | rel_path ) [ "?" query ]
 
@@ -174,7 +174,7 @@ module Bundler::URI
         # server        = [ [ userinfo "@" ] hostport ]
 
       else
-        raise InvalidURIError, "bad Bundler::URI(is not Bundler::URI?): #{uri}"
+        raise InvalidURIError, "bad URI(is not URI?): #{uri}"
       end
 
       path = '' if !path && !opaque # (see RFC2396 Section 5.2)
@@ -454,7 +454,7 @@ module Bundler::URI
       # relativeURI   = ( net_path | abs_path | rel_path ) [ "?" query ]
       ret[:REL_URI] = rel_uri = "(?:#{net_path}|#{abs_path}|#{rel_path})(?:\\?#{query})?"
 
-      # Bundler::URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
+      # URI-reference = [ absoluteURI | relativeURI ] [ "#" fragment ]
       ret[:URI_REF] = "(?:#{abs_uri}|#{rel_uri})?(?:##{fragment})?"
 
       ret[:X_ABS_URI] = "
@@ -538,7 +538,7 @@ module Bundler::URI
         parse(uri)
       else
         raise ArgumentError,
-          "bad argument (expected Bundler::URI object or Bundler::URI string)"
+          "bad argument (expected URI object or URI string)"
       end
     end
 

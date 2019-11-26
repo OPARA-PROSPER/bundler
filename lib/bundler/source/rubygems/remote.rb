@@ -42,13 +42,14 @@ module Bundler
       private
 
         def apply_auth(uri, auth)
+          require_relative "../../vendored_uri"
           if auth && uri.userinfo.nil?
             uri = uri.dup
             uri.userinfo = auth
           end
 
           uri
-        rescue URI::InvalidComponentError
+        rescue Bundler::URI::InvalidComponentError
           error_message = "Please CGI escape your usernames and passwords before " \
                           "setting them for authentication."
           raise HTTPError.new(error_message)

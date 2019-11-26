@@ -1,5 +1,5 @@
 require 'net/http'
-require 'uri'
+require_relative '../../../../uri/lib/uri'
 require 'cgi' # for escaping
 require_relative '../../../../connection_pool/lib/connection_pool'
 

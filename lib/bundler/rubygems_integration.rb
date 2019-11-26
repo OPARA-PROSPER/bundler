@@ -514,7 +514,8 @@ module Bundler
     end
 
     def fetch_all_remote_specs(remote)
-      source = remote.uri.is_a?(URI) ? remote.uri : URI.parse(source.to_s)
+      require_relative "vendored_uri"
+      source = remote.uri.is_a?(Bundler::URI) ? remote.uri : Bundler::URI.parse(source.to_s)
 
       specs = fetch_specs(source, remote, "specs")
       pres = fetch_specs(source, remote, "prerelease_specs") || []

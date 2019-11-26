@@ -21,7 +21,8 @@ module Bundler
         when Net::HTTPSuccess, Net::HTTPNotModified
           response
         when Net::HTTPRedirection
-          new_uri = URI.parse(response["location"])
+          require_relative "../vendored_uri"
+          new_uri = Bundler::URI.parse(response["location"])
           if new_uri.host == uri.host
             new_uri.user = uri.user
             new_uri.password = uri.password

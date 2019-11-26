@@ -725,12 +725,12 @@ module Bundler::URI
   end
 end # module Bundler::URI
 
-module Kernel
+module Bundler
 
   #
   # Returns +uri+ converted to an Bundler::URI object.
   #
-  def Bundler::URI(uri)
+  def URI(uri)
     if uri.is_a?(Bundler::URI::Generic)
       uri
     elsif uri = String.try_convert(uri)
@@ -740,5 +740,5 @@ module Kernel
         "bad argument (expected Bundler::URI object or Bundler::URI string)"
     end
   end
-  module_function :Bundler::URI
+  module_function :URI
 end

@@ -420,7 +420,7 @@ module Bundler
         suffix = $3
       end
       uri = "#{uri}/" unless uri.end_with?("/")
-      require "vendored_uri"
+      require_relative "vendored_uri"
       uri = Bundler::URI(uri)
       unless uri.absolute?
         raise ArgumentError, format("Gem sources must be absolute. You provided '%s'.", uri)

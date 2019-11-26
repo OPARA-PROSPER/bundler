@@ -28,7 +28,8 @@ module Bundler
            Net::HTTPTemporaryRedirect then
         raise FetchError.new("too many redirects", uri) if depth > 10
 
-        location = URI.parse response["Location"]
+        require_relative "vendored_uri"
+        location = Bundler::URI.parse response["Location"]
 
         if https?(uri) && !https?(location)
           raise FetchError.new("redirecting to non-https resource: #{location}", uri)
