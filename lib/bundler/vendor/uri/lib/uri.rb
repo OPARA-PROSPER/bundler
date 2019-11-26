@@ -92,13 +92,13 @@
 module Bundler::URI
 end
 
-require 'bundler/vendor/uri/lib/uri/version'
-require 'bundler/vendor/uri/lib/uri/common'
-require 'bundler/vendor/uri/lib/uri/generic'
-require 'bundler/vendor/uri/lib/uri/file'
-require 'bundler/vendor/uri/lib/uri/ftp'
-require 'bundler/vendor/uri/lib/uri/http'
-require 'bundler/vendor/uri/lib/uri/https'
-require 'bundler/vendor/uri/lib/uri/ldap'
-require 'bundler/vendor/uri/lib/uri/ldaps'
-require 'bundler/vendor/uri/lib/uri/mailto'
+require_relative 'uri/version'
+require_relative 'uri/common'
+require_relative 'uri/generic'
+require_relative 'uri/file'
+require_relative 'uri/ftp'
+require_relative 'uri/http'
+require_relative 'uri/https'
+require_relative 'uri/ldap'
+require_relative 'uri/ldaps'
+require_relative 'uri/mailto'
