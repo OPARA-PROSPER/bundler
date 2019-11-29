@@ -40,5 +40,41 @@ module Bundler
         raise FetchError.new("bad response #{response.message} #{response.code}", uri)
       end
     end
+
+    ##
+    # Downloads +uri+ and returns it as a String.
+
+    def fetch_path(uri, mtime = nil, head = false)
+      uri = Bundler::URI.parse uri unless Bundler::URI::Generic === uri
+
+      raise ArgumentError, "bad uri: #{uri}" unless uri
+
+      unless uri.scheme
+        raise ArgumentError, "uri scheme is invalid: #{uri.scheme.inspect}"
+      end
+
+      data = send "fetch_#{uri.scheme}", uri, mtime, head
+
+      if data && !head && uri.to_s =~ /\.gz$/
+        begin
+          data = Gem::Util.gunzip data
+        rescue Zlib::GzipFile::Error
+          raise FetchError.new("server did not return a valid file", uri.to_s)
+        end
+      end
+
+      data
+    rescue FetchError
+      raise
+    rescue Timeout::Error
+      raise UnknownHostError.new("timed out", uri.to_s)
+    rescue IOError, SocketError, SystemCallError,
+           *(OpenSSL::SSL::SSLError if defined?(OpenSSL)) => e
+      if e.message =~ /getaddrinfo/
+        raise UnknownHostError.new("no such name", uri.to_s)
+      else
+        raise FetchError.new("#{e.class}: #{e}", uri.to_s)
+      end
+    end
   end
 end
