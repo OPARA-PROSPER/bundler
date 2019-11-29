@@ -67,13 +67,13 @@ RSpec.describe Bundler::RubygemsIntegration do
   end
 
   describe "#fetch_all_remote_specs" do
-    let(:uri) { URI("https://example.com") }
+    let(:uri) { Bundler::URI("https://example.com") }
     let(:fetcher) { double("gem_remote_fetcher") }
     let(:specs_response) { Marshal.dump(["specs"]) }
     let(:prerelease_specs_response) { Marshal.dump(["prerelease_specs"]) }
 
     context "when a rubygems source mirror is set" do
-      let(:orig_uri) { URI("http://zombo.com") }
+      let(:orig_uri) { Bundler::URI("http://zombo.com") }
       let(:remote_with_mirror) { double("remote", :uri => uri, :original_uri => orig_uri) }
 
       it "sets the 'X-Gemfile-Source' header containing the original source" do
