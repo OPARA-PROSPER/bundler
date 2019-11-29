@@ -44,7 +44,7 @@ RSpec.describe Bundler::RubygemsIntegration do
   describe "#download_gem" do
     let(:bundler_retry) { double(Bundler::Retry) }
     let(:retry) { double("Bundler::Retry") }
-    let(:uri) {  URI.parse("https://foo.bar") }
+    let(:uri) {  Bundler::URI.parse("https://foo.bar") }
     let(:path) { Gem.path.first }
     let(:spec) do
       spec = Bundler::RemoteSpecification.new("Foo", Gem::Version.new("2.5.2"),
