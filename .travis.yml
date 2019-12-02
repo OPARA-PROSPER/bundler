@@ -69,9 +69,9 @@ jobs:
       stage: test
     # Ruby-head (we want to know how we're doing, but not fail the build)
     - rvm: ruby-head
-      env: RGV=master
+      env: RGV=lazily_load_uri_in_remote_fetcher
       stage: test
 
   allow_failures:
     - rvm: ruby-head
-      env: RGV=master
+      env: RGV=lazily_load_uri_in_remote_fetcher
